@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tigo Deken | Industrial Product Design</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --stone-bg: #F0EDE6;
+            --stone-card: #FAFAF8;
+            --stone-line: #D5D1C8;
+            --slate-text: #22252A;
+            --slate-muted: #5A606A;
+            --rust: #BD5745;
+            --forest: #2C4C3B;
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--stone-bg);
+            color: var(--slate-text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        ::selection {
+            background-color: var(--rust);
+            color: var(--stone-bg);
+        }
+
+        h1, h2, h3, .font-heading {
+            font-family: var(--font-heading);
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1152px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        nav {
+            padding: 32px 0 16px 0;
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.25rem;
+            letter-spacing: -0.025em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--slate-muted);
+        }
+
+        .nav-links a:hover {
+            color: var(--rust);
+        }
+
+        .hero {
+            padding: 64px 0 96px 0;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .hero-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--forest);
+            margin-bottom: 24px;
+        }
+
+        .hero-content p {
+            font-size: 1.125rem;
+            color: var(--slate-muted);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            display: inline-block;
+            padding: 16px 32px;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--slate-text);
+            color: var(--stone-bg);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--rust);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: rgba(213, 209, 200, 0.3);
+            color: var(--slate-text);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(213, 209, 200, 0.6);
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin: 0 auto;
+        }
+
+        .blob-profile {
+            border-radius: 43% 57% 65% 35% / 45% 52% 48% 55%;
+        }
+
+        .hero-image-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(189, 87, 69, 0.1);
+            transform: translate(16px, 16px);
+        }
+
+        .hero-image-wrapper img {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            box-shadow: 0 10px 25px -5px rgba(34, 37, 42, 0.15);
+        }
+
+        .experience {
+            background-color: var(--stone-card);
+            padding: 96px 0;
+            border-top: 1px solid rgba(213, 209, 200, 0.4);
+            border-bottom: 1px solid rgba(213, 209, 200, 0.4);
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 48px;
+        }
+
+        .timeline {
+            max-width: 800px;
+            border-left: 2px solid rgba(213, 209, 200, 0.6);
+            margin-left: 16px;
+            padding-left: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+        }
+
+        .timeline-item {
+            position: relative;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -41px;
+            top: 6px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 4px solid var(--stone-card);
+        }
+
+        .timeline-dot.rust { background-color: var(--rust); }
+        .timeline-dot.forest { background-color: var(--forest); }
+
+        .timeline-header {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-header h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .tag {
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            width: fit-content;
+        }
+
+        .tag.rust { color: var(--rust); background-color: rgba(189, 87, 69, 0.1); }
+        .tag.forest { color: var(--forest); background-color: rgba(44, 76, 59, 0.1); }
+
+        .timeline-subtitle {
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .timeline-desc {
+            color: var(--slate-muted);
+        }
+
+        .projects {
+            padding: 96px 0;
+            flex-grow: 1;
+        }
+
+        .projects-desc {
+            color: var(--slate-muted);
+            font-size: 1.125rem;
+            margin-bottom: 48px;
+            max-width: 700px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+
+        .project-card {
+            background-color: var(--stone-card);
+            padding: 24px;
+            border-radius: 24px;
+            border: 1px solid rgba(213, 209, 200, 0.2);
+            box-shadow: 0 4px 20px -10px rgba(34, 37, 42, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px -12px rgba(34, 37, 42, 0.1);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 220px;
+            background-color: var(--stone-bg);
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .blob-project-1 { border-radius: 12px 12px 60% 12px; }
+        .blob-project-2 { border-radius: 60% 12px 12px 12px; }
+        .blob-project-3 { border-radius: 12px 60% 12px 12px; }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+        }
+
+        .project-details {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            flex-grow: 1;
+        }
+
+        .detail-block span {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 4px;
+        }
+
+        .detail-block p {
+            font-size: 0.875rem;
+            color: var(--slate-muted);
+        }
+
+        .text-rust { color: var(--rust); }
+        .text-forest { color: var(--forest); }
+
+        footer {
+            background-color: var(--slate-text);
+            color: var(--stone-bg);
+            padding: 64px 0;
+        }
+
+        .footer-top {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            justify-content: space-between;
+            margin-bottom: 64px;
+        }
+
+        .footer-top h2 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .footer-top p {
+            color: rgba(240, 237, 230, 0.7);
+            font-size: 0.875rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            font-weight: 600;
+        }
+
+        .footer-links a {
+            border-bottom: 2px solid transparent;
+            padding-bottom: 4px;
+        }
+
+        .footer-links a.email:hover { color: var(--rust); border-color: var(--rust); }
+        .footer-links a.social:hover { color: var(--forest); border-color: var(--forest); }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(240, 237, 230, 0.1);
+            padding-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.875rem;
+            color: rgba(240, 237, 230, 0.5);
+            justify-content: space-between;
+        }
+
+        @media (min-width: 768px) {
+            .hero { padding: 96px 0 128px 0; }
+            .hero-grid { grid-template-columns: 7fr 5fr; }
+            .hero-content { order: 1; }
+            .hero-content h1 { font-size: 3.75rem; }
+            .hero-content h2 { font-size: 1.875rem; }
+            .hero-image-wrapper { order: 2; width: 320px; height: 320px; margin: 0 0 0 auto; }
+            
+            .timeline-header { flex-direction: row; align-items: baseline; gap: 16px; }
+            .projects-grid { grid-template-columns: repeat(3, 1fr); }
+            
+            .footer-top { flex-direction: row; align-items: center; }
+            .footer-bottom { flex-direction: row; }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-content h1 { font-size: 4.5rem; }
+            .hero-image-wrapper { width: 384px; height: 384px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-inner">
+            <span class="logo font-heading">TD.</span>
+            <div class="nav-links">
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="hero" class="hero">
+            <div class="container hero-grid">
+                
+                <div class="hero-content">
+                    <h1 class="font-heading">Tigo Deken</h1>
+                    <h2 class="font-heading">Industrial Product Design Student</h2>
+                    <p>
+                        Third-year engineering student at Hogeschool van Amsterdam seeking an internship. Focused on Design for Manufacture, parametric modeling, and mechanical optimization.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn-primary">View Projects</a>
+                        <a href="#contact" class="btn-secondary">Contact Me</a>
+                    </div>
+                </div>
+
+                <div class="hero-image-wrapper">
+                    <div class="hero-image-bg blob-profile"></div>
+                    <img src="https://placehold.co/600x600/22252A/F0EDE6?text=Tigo+Deken" alt="Tigo Deken" class="blob-profile">
+                </div>
+
+            </div>
+        </section>
+
+        <section id="experience" class="experience">
+            <div class="container">
+                <h2 class="section-title font-heading">Experience & Education</h2>
+                
+                <div class="timeline">
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot rust"></div>
+                        <div class="timeline-header">
+                            <h3 class="font-heading">Academic Exchange</h3>
+                            <span class="tag rust">Present</span>
+                        </div>
+                        <p class="timeline-subtitle">Universidad Pública de Navarra (UPNA) — Pamplona, Spain</p>
+                        <p class="timeline-desc">Expanding engineering perspective through international coursework, focusing on advanced manufacturing and material science.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot forest"></div>
+                        <div class="timeline-header">
+                            <h3 class="font-heading">BSc Industrial Product Design</h3>
+                            <span class="tag forest">2023 — Present</span>
+                        </div>
+                        <p class="timeline-subtitle">Hogeschool van Amsterdam (HvA) — Amsterdam, Netherlands</p>
+                        <p class="timeline-desc">Core focus on engineering mechanics, CAD (SolidWorks, Rhino), prototyping, and Design for Manufacture (DFM). Consistently bridging the gap between theoretical calculations and physical assembly.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects">
+            <div class="container">
+                <h2 class="section-title font-heading" style="margin-bottom: 16px;">Selected Projects</h2>
+                <p class="projects-desc">Engineering solutions constrained by physical reality. Focus on manufacturability and mechanical logic.</p>
+
+                <div class="projects-grid">
+                    
+                    <!-- Project 1 -->
+                    <article class="project-card">
+                        <div class="project-image blob-project-1">
+                            <img src="https://placehold.co/600x400/22252A/F0EDE6?text=Project+1" alt="Project 1 Thumbnail">
+                        </div>
+                        <h3 class="font-heading">Precision Tooling Fixture</h3>
+                        
+                        <div class="project-details">
+                            <div class="detail-block">
+                                <span class="text-rust">Problem</span>
+                                <p>[Briefly describe the engineering objective or mechanical issue being solved here.]</p>
+                            </div>
+                            <div class="detail-block">
+                                <span class="text-forest">Manufacturing Constraint</span>
+                                <p>[List physical limits: e.g., CNC milling tolerances, material yield strength, specific draft angles.]</p>
+                            </div>
+                            <div class="detail-block">
+                                <span>Solution</span>
+                                <p>[Describe the technical resolution, specific CAD tools utilized, and the mechanics applied.]</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project 2 -->
+                    <article class="project-card">
+                        <div class="project-image blob-project-2">
+                            <img src="https://placehold.co/600x400/2C4C3B/F0EDE6?text=Project+2" alt="Project 2 Thumbnail">
+                        </div>
+                        <h3 class="font-heading">Parametric Frame Analysis</h3>
+                        
+                        <div class="project-details">
+                            <div class="detail-block">
+                                <span class="text-rust">Problem</span>
+                                <p>[Briefly describe the engineering objective or mechanical issue being solved here.]</p>
+                            </div>
+                            <div class="detail-block">
+                                <span class="text-forest">Manufacturing Constraint</span>
+                                <p>[List physical limits: e.g., weldment joint accessibility, sheet metal bending limits, k-factors.]</p>
+                            </div>
+                            <div class="detail-block">
+                                <span>Solution</span>
+                                <p>[Describe the technical resolution, specific CAD tools utilized, and the mechanics applied.]</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project 3 -->
+                    <article class="project-card">
+                        <div class="project-image blob-project-3">
+                            <img src="https://placehold.co/600x400/BD5745/F0EDE6?text=Project+3" alt="Project 3 Thumbnail">
+                        </div>
+                        <h3 class="font-heading">Injection Molded Casing</h3>
+                        
+                        <div class="project-details">
+                            <div class="detail-block">
+                                <span class="text-rust">Problem</span>
+                                <p>[Briefly describe the engineering objective or mechanical issue being solved here.]</p>
+                            </div>
+                            <div class="detail-block">
+                                <span class="text-forest">Manufacturing Constraint</span>
+                                <p>[List physical limits: e.g., minimum wall thickness of 1.5mm, sink marks, ribbing structures.]</p>
+                            </div>
+                            <div class="detail-block">
+                                <span>Solution</span>
+                                <p>[Describe the technical resolution, specific CAD tools utilized, and the mechanics applied.]</p>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-top">
+                <div>
+                    <h2 class="font-heading">Let's build something real.</h2>
+                    <p>Currently seeking internship opportunities for 2026/2027.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="mailto:placeholder@example.com" class="email">Email Me</a>
+                    <a href="#" class="social">LinkedIn</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Tigo Deken. All rights reserved.</p>
+                <p>Industrial Product Design Portfolio</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
