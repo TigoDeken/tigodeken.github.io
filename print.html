@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex">
+  <title>Portfolio print — Tigo Deken</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&family=Playfair+Display:wght@400&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <style>.pager, .todo { display: none; } .cover { padding-top: 4mm; } .cover + .project { break-before: auto; } figure img { max-height: 55mm !important; } .cover h1 { margin-bottom: 1rem; }</style>
+</head>
+<body>
+  <main id="out" class="wrap">
+    <section class="cover prose">
+      <h1>Tigo Deken</h1>
+      <p>Engineering Product Design, HvA Amsterdam. Looking for a 5-month internship in NPI, manufacturing or injection moulding DFM from February 2027.</p>
+      <p>tigodeken.github.io · tigodeken@gmail.com · linkedin.com/in/tigo-deken</p>
+    </section>
+  </main>
+  <script>
+    (async () => {
+      const out = document.getElementById('out');
+      for (const page of ['flipcap.html', 'air-intake.html', 'body-panels.html']) {
+        const html = await (await fetch(page)).text();
+        const main = new DOMParser().parseFromString(html, 'text/html').querySelector('main');
+        const art = document.createElement('article');
+        art.className = 'project';
+        art.innerHTML = main.innerHTML;
+        out.append(art);
+      }
+      document.querySelectorAll('img').forEach(i => i.loading = 'eager');
+      document.body.dataset.ready = '1';
+    })();
+  </script>
+</body>
+</html>

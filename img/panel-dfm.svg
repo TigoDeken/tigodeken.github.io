@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="15">
+  <rect width="800" height="450" fill="#1a1815"/>
+  <g fill="none" stroke="#8a857b" stroke-width="2">
+    <path d="M60 120h680v24H60z"/>
+    <path d="M180 144l6 110h16l6-110"/>
+    <path d="M360 144v96a30 30 0 0 0 60 0v-96"/>
+    <path d="M375 144v90a15 15 0 0 0 30 0v-90" stroke="#3a3630"/>
+    <path d="M560 144v100h14l10 12h-30l-6-12" />
+    <path d="M574 144v100"/>
+  </g>
+  <g stroke="#d4700a" stroke-width="1.5" fill="none">
+    <path d="M750 120v24M744 120h12M744 144h12"/>
+    <path d="M186 275h22"/>
+    <path d="M150 144l30 0" stroke-dasharray="4 4"/>
+    <path d="M196 144l-10 110" stroke-dasharray="4 4"/>
+  </g>
+  <g fill="#f0ece4">
+    <text x="60" y="100">Outer panel wall, thickness t</text>
+    <text x="150" y="300">Rib</text>
+    <text x="350" y="300">Screw boss</text>
+    <text x="530" y="300">Snap hook</text>
+  </g>
+  <g fill="#8a857b" font-size="13">
+    <text x="150" y="320">Thinner than t to limit sink</text>
+    <text x="150" y="338">Draft on both faces</text>
+    <text x="350" y="320">Cored out, tied to wall</text>
+    <text x="350" y="338">Rubber grommet for vibration</text>
+    <text x="530" y="320">Strain limit of material</text>
+    <text x="530" y="338">Undercut needs slide or lifter</text>
+    <text x="60" y="420">Concept schematic of features to evaluate, not to scale. Not a CAD model.</text>
+  </g>
+</svg>

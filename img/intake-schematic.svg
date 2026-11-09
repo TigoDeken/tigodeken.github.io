@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="15">
+  <rect width="800" height="450" fill="#1a1815"/>
+  <g fill="none" stroke="#8a857b" stroke-width="2">
+    <rect x="70" y="140" width="190" height="170" rx="10"/>
+    <path d="M90 160v130M110 160v130M130 160v130" stroke="#3a3630"/>
+    <path d="M260 185c40 0 60 10 80 25v30c-20 15-40 25-80 25" stroke="#d4700a"/>
+    <path d="M340 200h120v50H340z"/>
+    <path d="M370 200c15 15 45 15 60 0M370 250c15-15 45-15 60 0"/>
+    <path d="M460 205h70l20 10v20l-20 10h-70"/>
+    <rect x="550" y="120" width="170" height="210"/>
+    <path d="M550 215h-0" />
+  </g>
+  <g stroke="#d4700a" stroke-width="2" fill="#d4700a">
+    <path d="M20 225h40" /><path d="M60 225l-9-5v10z"/>
+    <path d="M20 190h40" /><path d="M60 190l-9-5v10z"/>
+    <path d="M20 260h40" /><path d="M60 260l-9-5v10z"/>
+  </g>
+  <g fill="#f0ece4">
+    <text x="70" y="128">Filter housing</text>
+    <text x="250" y="300">Velocity stack</text>
+    <text x="345" y="185">Carburettor</text>
+    <text x="462" y="280">Intake boot</text>
+    <text x="580" y="230">Cylinder head</text>
+  </g>
+  <g fill="#8a857b" font-size="13">
+    <text x="70" y="335">Filter area, sealing, water path</text>
+    <text x="250" y="320">Bellmouth profile, length</text>
+    <text x="462" y="300">Clamp interface to existing boot</text>
+    <text x="70" y="420">Concept schematic, not to scale. Not a CAD model or measured layout.</text>
+  </g>
+</svg>
