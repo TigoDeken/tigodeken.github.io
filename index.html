@@ -1,121 +1,594 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tigo Deken — product design engineering portfolio</title>
-  <meta name="description" content="Engineering Product Design student at HvA Amsterdam, looking for a manufacturing and DFM internship from February 2027.">
-  <meta property="og:title" content="Tigo Deken — product design engineering portfolio">
-  <meta property="og:description" content="Design for manufacture, injection moulding and plastic parts. Looking for an internship from February 2027.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://tigodeken.github.io/">
-  <meta property="og:image" content="https://tigodeken.github.io/img/og.jpg">
-  <meta name="theme-color" content="#0f0e0c">
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&family=Playfair+Display:wght@400&display=swap">
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tigo Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: one fixed flat-shaded 3D gear drifts between sections; text sits opposite it on a single-hue gradient. */
+:root {
+  --h: 212;
+  --l1: 12%;
+  --l2: 18%;
+  --bg1: hsl(var(--h) 24% var(--l1));
+  --bg2: hsl(var(--h) 28% var(--l2));
+  --ink: hsl(212 28% 94%);
+  --dim: hsl(212 16% 70%);
+  --line: hsl(212 30% 90% / .16);
+  --accent: hsl(212 75% 78%);
+  --warm: hsl(24 96% 62%);
+  --wx: 25%;
+  --wy: 80%;
+  --font: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --gx: 70%;
+  --gy: 50%;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  font-stretch: 100%;
+  color: var(--ink);
+  background-color: var(--bg1);
+  background-image: linear-gradient(160deg, var(--bg1), var(--bg2));
+  background-attachment: fixed;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.glow {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(circle at var(--gx) var(--gy), hsl(var(--h) 55% 46% / .30), transparent 50%),
+    radial-gradient(circle at var(--wx) var(--wy), hsl(24 90% 55% / .16), transparent 46%);
+}
+#stage { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+.progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 30; background: linear-gradient(90deg, var(--accent), var(--warm)); transform-origin: left; transform: scaleX(0); }
+
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 22px clamp(20px, 4vw, 56px);
+}
+.mark { font-weight: 800; font-stretch: 112%; letter-spacing: -.01em; color: var(--ink); text-decoration: none; }
+nav { display: flex; gap: clamp(16px, 3vw, 36px); }
+nav a, .link {
+  position: relative; color: var(--dim); text-decoration: none; font-size: .9rem; font-weight: 500; letter-spacing: .02em;
+  transition: color .3s;
+}
+nav a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: var(--accent);
+  transform: scaleX(0); transform-origin: right; transition: transform .45s cubic-bezier(.2,.7,.1,1);
+}
+nav a:hover, nav a:focus-visible { color: var(--ink); }
+nav a:hover::after, nav a:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+
+main { position: relative; z-index: 2; }
+section { padding: 0 clamp(20px, 4vw, 56px); }
+.label { font-size: .8rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); margin-bottom: 28px; }
+
+h1, h2 { font-weight: 700; font-stretch: 112%; letter-spacing: -.035em; line-height: .96; text-wrap: balance; }
+h1 { font-size: clamp(3rem, 9vw, 8.4rem); max-width: 9ch; }
+h2 { font-size: clamp(2.2rem, 5.2vw, 4.6rem); max-width: 14ch; }
+.lede { margin-top: 36px; max-width: 34ch; font-size: clamp(1.05rem, 1.6vw, 1.3rem); color: var(--dim); }
+.lede b { color: var(--ink); font-weight: 600; }
+
+#hero { padding-top: clamp(130px, 24vh, 240px); padding-bottom: clamp(120px, 22vh, 220px); }
+.hint { margin-top: 56px; display: flex; align-items: center; gap: 14px; font-size: .85rem; color: var(--dim); }
+.hint i { display: block; width: 56px; height: 1px; background: var(--warm); transform-origin: left; animation: tick 2.4s cubic-bezier(.6,0,.2,1) infinite; }
+@keyframes tick { 0% { transform: scaleX(0); } 55% { transform: scaleX(1); transform-origin: left; } 56% { transform-origin: right; } 100% { transform: scaleX(0); transform-origin: right; } }
+
+#work { padding-top: 80px; padding-bottom: 140px; }
+.wrap-work { max-width: min(720px, 62%); }
+.rows { list-style: none; margin-top: 56px; border-top: 1px solid var(--line); }
+.rows li { border-bottom: 1px solid var(--line); }
+.row {
+  width: 100%; display: grid; grid-template-columns: 3rem 1fr auto 2rem; align-items: center; gap: 12px;
+  background: none; border: 0; color: inherit; font: inherit; text-align: left; cursor: pointer;
+  padding: 26px 8px; position: relative; isolation: isolate;
+}
+.row::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, hsl(24 90% 55% / .13), hsl(212 40% 80% / .05));
+  transform: scaleY(0); transform-origin: bottom; transition: transform .5s cubic-bezier(.2,.7,.1,1);
+}
+.row:hover::before, .row[aria-expanded="true"]::before { transform: scaleY(1); }
+.idx { font-size: .85rem; color: var(--dim); font-variant-numeric: tabular-nums; transition: color .3s; }
+.row:hover .idx, .row[aria-expanded="true"] .idx { color: var(--warm); }
+.ttl { font-size: clamp(1.25rem, 2.4vw, 1.9rem); font-weight: 600; font-stretch: 108%; letter-spacing: -.02em; transition: transform .5s cubic-bezier(.2,.7,.1,1); }
+.row:hover .ttl { transform: translateX(10px); }
+.tag { font-size: .8rem; color: var(--dim); }
+.plus { position: relative; width: 16px; height: 16px; justify-self: end; transition: transform .5s cubic-bezier(.2,.7,.1,1); }
+.plus::before, .plus::after { content: ""; position: absolute; background: var(--warm); }
+.plus::before { left: 0; right: 0; top: 7.5px; height: 1px; }
+.plus::after { top: 0; bottom: 0; left: 7.5px; width: 1px; transition: transform .5s cubic-bezier(.2,.7,.1,1); }
+.row[aria-expanded="true"] .plus { transform: rotate(180deg); }
+.row[aria-expanded="true"] .plus::after { transform: scaleY(0); }
+.more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .55s cubic-bezier(.2,.7,.1,1); }
+.more > div { overflow: hidden; }
+.more p { padding: 0 8px 28px calc(3rem + 20px); color: var(--dim); max-width: 46ch; }
+.row[aria-expanded="true"] + .more { grid-template-rows: 1fr; }
+
+#approach { padding-top: 80px; padding-bottom: 140px; }
+.wrap-approach { margin-left: max(40%, 0px); max-width: 640px; }
+.items { margin-top: 56px; display: grid; gap: 0; }
+.item { position: relative; padding: 28px 0 30px; display: grid; grid-template-columns: 9.5rem 1fr; gap: 24px; }
+.item::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, var(--warm), var(--line) 40%);
+  transform: scaleX(0); transform-origin: left; transition: transform 1.2s cubic-bezier(.2,.7,.1,1) calc(var(--d, 0) * 90ms);
+}
+.item.in::before { transform: scaleX(1); }
+.item:hover h3 { color: var(--warm); }
+.item h3 { transition: color .3s; font-size: 1.15rem; font-weight: 600; font-stretch: 108%; letter-spacing: -.01em; }
+.item p { color: var(--dim); }
+
+#contact { padding-top: 60px; padding-bottom: 90px; min-height: 80vh; display: flex; flex-direction: column; justify-content: flex-end; }
+.wrap-contact h2 { max-width: 12ch; }
+.contact-row { margin-top: 48px; display: flex; flex-wrap: wrap; align-items: center; gap: 28px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 12px; padding: 18px 30px; border-radius: 999px;
+  border: 1px solid var(--warm); background: transparent; color: var(--ink); font: inherit; font-weight: 600; font-size: 1rem;
+  cursor: pointer; transition: color .4s, transform .25s ease-out, box-shadow .4s; will-change: transform; position: relative; overflow: hidden; isolation: isolate;
+}
+.btn::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--warm); transform: translateY(101%); transition: transform .5s cubic-bezier(.2,.7,.1,1); border-radius: inherit; }
+.btn:hover { color: hsl(24 60% 10%); box-shadow: 0 0 40px hsl(24 96% 55% / .35); }
+.btn:hover::before { transform: none; }
+.note { color: var(--dim); font-size: .9rem; }
+footer { margin-top: 90px; padding-top: 22px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: .8rem; color: var(--dim); }
+
+/* Reveals: visible by default, hidden only once JS is running; JS has a fail-safe that shows everything. */
+.js .rv { opacity: 0; transform: translateY(26px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.7,.1,1); transition-delay: calc(var(--d, 0) * 90ms); }
+.js .rv.in { opacity: 1; transform: none; }
+.w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .1em; margin-bottom: -.1em; }
+.w > span { display: inline-block; }
+.w > span.warm { color: var(--warm); }
+.js .w > span { transform: translateY(108%); transition: transform 1s cubic-bezier(.2,.7,.1,1) calc(var(--i, 0) * 70ms); }
+.js .sp.in .w > span { transform: none; }
+
+.ring {
+  position: fixed; top: 0; left: 0; width: 38px; height: 38px; margin: -19px 0 0 -19px; z-index: 40; pointer-events: none;
+  border: 1px solid var(--warm); border-radius: 50%; opacity: 0; transition: opacity .3s, width .35s, height .35s, margin .35s, background .35s;
+}
+.ring.on { opacity: .7; }
+.ring.big { width: 72px; height: 72px; margin: -36px 0 0 -36px; background: hsl(212 75% 70% / .14); border-color: var(--accent); }
+
+@media (max-width: 800px) {
+  .wrap-work, .wrap-approach { max-width: none; margin-left: 0; }
+  .tag { display: none; }
+  .row { grid-template-columns: 2.4rem 1fr 2rem; }
+  .more p { padding-left: calc(2.4rem + 20px); }
+  .item { grid-template-columns: 1fr; gap: 6px; }
+  #hero { padding-top: 38vh; }
+  #contact { min-height: 70vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .rv, .js .w > span { transition: none; opacity: 1; transform: none; }
+  .item::before { transition: none; transform: scaleX(1); }
+  .hint i { animation: none; transform: scaleX(1); }
+}
+</style>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="wrap">
-      <a class="name" href="./">Tigo Deken</a>
-      <nav aria-label="Main">
-        <a href="#work">Work</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
+<div class="glow"></div>
+<canvas id="stage" aria-hidden="true"></canvas>
+<div class="progress" id="progress"></div>
+<div class="ring" id="ring"></div>
 
-  <main id="main">
-    <section class="hero wrap">
-      <div>
-        <h1>Tigo Deken</h1>
-        <p class="lede">I design plastic products with the mould in mind: wall thickness, draft, material choice and how the part gets tested.</p>
-        <p class="muted">2nd-year Engineering Product Design, HvA Amsterdam. Looking for a 5-month internship in NPI, manufacturing or injection moulding DFM from February 2027.</p>
-      </div>
-      <figure>
-        <img src="img/flipcap-hero.webp" width="1051" height="728" alt="Render of the Recharge Flip Cap: a PP outer bottle with flip cap next to its HDPE refill cartridge">
-        <figcaption>Recharge Flip Cap, PP outer bottle and HDPE refill cartridge.</figcaption>
-      </figure>
-    </section>
+<header>
+  <a class="mark" href="#hero" data-hover>Tigo</a>
+  <nav aria-label="Sections">
+    <a href="#work" data-hover>Work</a>
+    <a href="#approach" data-hover>Approach</a>
+    <a href="#contact" data-hover>Contact</a>
+  </nav>
+</header>
 
-    <section id="work" class="work wrap" aria-labelledby="work-title">
-      <h2 id="work-title">Work</h2>
+<main>
+  <section id="hero">
+    <p class="label rv">Engineering Product Design</p>
+    <h1 class="sp" data-split data-warm="well.">Simple things, made well.</h1>
+    <p class="lede rv" style="--d:4"><b>Tigo.</b> Product design student in Amsterdam. Parts, machines and the details that make them work.</p>
+    <div class="hint rv" style="--d:6"><i></i>Scroll</div>
+  </section>
 
-      <a class="row" href="flipcap.html">
-        <figure>
-          <img src="img/flipcap-cad2.webp" width="764" height="626" loading="lazy" alt="SolidWorks model, close-up of the flip cap hinge and lid on the outer bottle">
-        </figure>
-        <div>
-          <p class="kind">School project</p>
-          <h3>Recharge Flip Cap</h3>
-          <p>A refillable shampoo bottle: keep the outer shell, replace only a light inner cartridge.</p>
-          <dl class="specs">
-            <dt>Material</dt><dd>PP shell, HDPE refill</dd>
-            <dt>Skill</dt><dd>Design for recycling, packaging DFM</dd>
-            <dt>Status</dt><dd>Completed</dd>
-          </dl>
-        </div>
-      </a>
-
-      <a class="row" href="air-intake.html">
-        <figure>
-          <img src="img/intake-schematic.svg" width="800" height="450" loading="lazy" alt="Schematic side view of the intake path: filter housing, velocity stack, carburettor, intake boot and cylinder head">
-        </figure>
-        <div>
-          <p class="kind">Personal project</p>
-          <h3>Air intake for carburetted motorcycles</h3>
-          <p>A replacement intake for older carburetted bikes, designed around the existing carburettor and boot.</p>
-          <dl class="specs">
-            <dt>Material</dt><dd>Under evaluation</dd>
-            <dt>Skill</dt><dd>Fit-up tolerances, prototype testing</dd>
-            <dt>Status</dt><dd>In progress</dd>
-          </dl>
-        </div>
-      </a>
-
-      <a class="row" href="body-panels.html">
-        <figure>
-          <img src="img/panel-dfm.svg" width="800" height="450" loading="lazy" alt="Schematic cross-section of a plastic body panel with a rib, a screw boss and a snap hook">
-        </figure>
-        <div>
-          <p class="kind">Personal project</p>
-          <h3>Plastic motorcycle body parts</h3>
-          <p>Material selection and moulding design for plastic side covers and fairing parts.</p>
-          <dl class="specs">
-            <dt>Material</dt><dd>ABS, PC/ABS, PP compared</dd>
-            <dt>Skill</dt><dd>Material selection, injection moulding DFM</dd>
-            <dt>Status</dt><dd>In progress</dd>
-          </dl>
-        </div>
-      </a>
-    </section>
-
-    <section id="about" class="about wrap" aria-labelledby="about-title">
-      <div class="prose">
-        <h2 id="about-title">About</h2>
-        <p>I study Engineering Product Design at the Hogeschool van Amsterdam. Next to my studies I work part-time in a technical inspection role at Tata Steel IJmuiden.</p>
-        <p>I work in Fusion 360 (including the simulation extension), SolidWorks and Rhino with Grasshopper, and I prototype on a Bambu 3D printer.</p>
-      </div>
-    </section>
-
-    <section id="contact" class="contact wrap" aria-labelledby="contact-title">
-      <h2 id="contact-title">Contact</h2>
-      <ul>
-        <li><a href="mailto:tigodeken@gmail.com">tigodeken@gmail.com</a></li>
-        <li><a href="https://www.linkedin.com/in/tigo-deken/">LinkedIn</a></li>
-        <li><a href="portfolio-tigo-deken.pdf">Portfolio PDF</a></li>
-        <li><span class="todo">TODO: add CV as cv-tigo-deken.pdf</span></li>
+  <section id="work">
+    <div class="wrap-work">
+      <p class="label rv">01 / Work</p>
+      <h2 class="sp" data-split data-warm="projects">Selected projects</h2>
+      <ul class="rows">
+        <li class="rv" style="--d:1">
+          <button class="row" aria-expanded="false" aria-controls="p1" data-hover><span class="idx">01</span><span class="ttl">Virago XV535 restoration</span><span class="tag">Mechanics</span><span class="plus"></span></button>
+          <div class="more" id="p1"><div><p>DIY restoration of a Yamaha XV535. Photos, process and results to be added.</p></div></div>
+        </li>
+        <li class="rv" style="--d:2">
+          <button class="row" aria-expanded="false" aria-controls="p2" data-hover><span class="idx">02</span><span class="ttl">House on a 1000 m² plot</span><span class="tag">Design</span><span class="plus"></span></button>
+          <div class="more" id="p2"><div><p>Own house design, iterated from plot analysis to visual. Case study to be added.</p></div></div>
+        </li>
+        <li class="rv" style="--d:3">
+          <button class="row" aria-expanded="false" aria-controls="p3" data-hover><span class="idx">03</span><span class="ttl">Injection molding DFM</span><span class="tag">Manufacturing</span><span class="plus"></span></button>
+          <div class="more" id="p3"><div><p>Designing plastic parts that are easy to mold. Examples and analysis to be added.</p></div></div>
+        </li>
+        <li class="rv" style="--d:4">
+          <button class="row" aria-expanded="false" aria-controls="p4" data-hover><span class="idx">04</span><span class="ttl">Parametric studies</span><span class="tag">Rhino + Grasshopper</span><span class="plus"></span></button>
+          <div class="more" id="p4"><div><p>Generative forms driven by a few parameters. Studies to be added.</p></div></div>
+        </li>
       </ul>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <footer class="site-footer">
-    <div class="wrap"><span>© 2026 Tigo Deken</span><span>Amsterdam, NL</span></div>
-  </footer>
+  <section id="approach">
+    <div class="wrap-approach">
+      <p class="label rv">02 / Approach</p>
+      <h2 class="sp" data-split data-warm="quality.">Fewer things, higher quality.</h2>
+      <div class="items">
+        <div class="item rv" style="--d:1"><h3>Draw</h3><p>Rhino, Grasshopper and SolidWorks. Parametric where it helps, plain where it doesn't.</p></div>
+        <div class="item rv" style="--d:2"><h3>Make</h3><p>3D printing and workshop prototypes. Parts I can hold before I defend them.</p></div>
+        <div class="item rv" style="--d:3"><h3>Maintain</h3><p>Motorcycle mechanics. Understanding a machine by taking it apart.</p></div>
+        <div class="item rv" style="--d:4"><h3>Manufacture</h3><p>Design for manufacturing. Fewer parts, simpler tooling.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap-contact">
+      <p class="label rv">03 / Contact</p>
+      <h2 class="sp" data-split data-warm="something.">Let's make something.</h2>
+      <div class="contact-row rv" style="--d:3">
+        <button class="btn" id="top" data-hover data-magnet>Back to top</button>
+        <span class="note">Email and links to be added.</span>
+      </div>
+      <footer class="rv" style="--d:4"><span>Tigo</span><span>Hoofddorp, Netherlands</span></footer>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  root.classList.add('js');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- split headings into word masks ---------- */
+  document.querySelectorAll('[data-split]').forEach(function (el) {
+    var words = el.textContent.trim().split(/\s+/);
+    var warmList = (el.getAttribute('data-warm') || '').split(',');
+    el.setAttribute('aria-label', el.textContent.trim());
+    el.innerHTML = words.map(function (w, i) {
+      var cls = warmList.indexOf(w) > -1 ? ' class="warm"' : '';
+      return '<span class="w" aria-hidden="true"><span' + cls + ' style="--i:' + i + '">' + w + '</span></span>';
+    }).join(' ');
+  });
+
+  /* ---------- scroll reveals ---------- */
+  var targets = document.querySelectorAll('.rv, .sp, .item');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+    targets.forEach(function (t) { io.observe(t); });
+    setTimeout(function () { targets.forEach(function (t) { if (t.getBoundingClientRect().top < window.innerHeight) t.classList.add('in'); }); }, 60);
+  }
+  setTimeout(function () { targets.forEach(function (t) { t.classList.add('in'); }); }, 6000);
+
+  /* ---------- accordion rows ---------- */
+  document.querySelectorAll('.row').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var open = b.getAttribute('aria-expanded') === 'true';
+      b.setAttribute('aria-expanded', open ? 'false' : 'true');
+    });
+  });
+
+  /* ---------- cursor ring + magnetic button ---------- */
+  var fine = window.matchMedia('(pointer: fine)').matches && !reduce;
+  var ring = document.getElementById('ring');
+  var mx = 0, my = 0, rx = 0, ry = 0, nx = 0, ny = 0;
+  window.addEventListener('pointermove', function (e) {
+    mx = e.clientX; my = e.clientY;
+    nx = (e.clientX / window.innerWidth) * 2 - 1;
+    ny = (e.clientY / window.innerHeight) * 2 - 1;
+    if (fine) ring.classList.add('on');
+  });
+  document.querySelectorAll('[data-hover]').forEach(function (el) {
+    el.addEventListener('pointerenter', function () { ring.classList.add('big'); });
+    el.addEventListener('pointerleave', function () { ring.classList.remove('big'); });
+  });
+  document.querySelectorAll('[data-magnet]').forEach(function (el) {
+    if (!fine) return;
+    el.addEventListener('pointermove', function (e) {
+      var r = el.getBoundingClientRect();
+      el.style.transform = 'translate(' + ((e.clientX - r.left - r.width / 2) * 0.28) + 'px,' + ((e.clientY - r.top - r.height / 2) * 0.35) + 'px)';
+    });
+    el.addEventListener('pointerleave', function () { el.style.transform = ''; });
+  });
+  document.getElementById('top').addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  });
+
+  /* ---------- flat-shaded gear (canvas, simple 3D) ---------- */
+  var cv = document.getElementById('stage');
+  var ctx = cv.getContext('2d');
+  var W = 0, H = 0, DPR = 1;
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = W * DPR; cv.height = H * DPR;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  window.addEventListener('resize', resize); resize();
+
+  var TEETH = 14, R_TIP = 1, R_ROOT = 0.84, HALF = 0.17;
+  var outer = [];
+  var pitch = Math.PI * 2 / TEETH;
+  var ang = [0.08, 0.22, 0.40, 0.54], rad = [R_ROOT, R_TIP, R_TIP, R_ROOT];
+  for (var k = 0; k < TEETH; k++) for (var j = 0; j < 4; j++) {
+    var a = k * pitch + ang[j] * pitch * 1.9;
+    outer.push([Math.cos(a) * rad[j], Math.sin(a) * rad[j]]);
+  }
+  function circle(cx, cy, r, n) {
+    var pts = [];
+    for (var i = 0; i < n; i++) { var a = i / n * Math.PI * 2; pts.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r]); }
+    return pts;
+  }
+  var BH = 0.07, RB = 0.44;
+  var holeShape = [];
+  for (var hi = 0; hi < 48; hi++) {
+    var haA = hi / 48 * Math.PI * 2, nearZero = hi <= 2 || hi >= 46;
+    var hr = nearZero ? 0.38 : 0.3;
+    holeShape.push([Math.cos(haA) * hr, Math.sin(haA) * hr]);
+  }
+  var loops = [{ pts: outer, sign: 1, h: HALF }, { pts: holeShape, sign: -1, h: HALF + BH }];
+  for (var h = 0; h < 6; h++) {
+    var ha = h / 6 * Math.PI * 2 + 0.26;
+    loops.push({ pts: circle(Math.cos(ha) * 0.6, Math.sin(ha) * 0.6, 0.1, 16), sign: -1, h: HALF });
+  }
+  var quads = [];
+  loops.forEach(function (L) {
+    var p = L.pts, n = p.length;
+    for (var i = 0; i < n; i++) {
+      var a = p[i], b = p[(i + 1) % n];
+      var dx = b[0] - a[0], dy = b[1] - a[1], len = Math.hypot(dx, dy) || 1;
+      quads.push({
+        c: [[a[0], a[1], -L.h], [b[0], b[1], -L.h], [b[0], b[1], L.h], [a[0], a[1], L.h]],
+        n: [dy / len * L.sign, -dx / len * L.sign, 0]
+      });
+    }
+  });
+
+  var HUE = 212;
+  var light = (function () { var v = [-0.55, 0.75, -0.65], m = Math.hypot(v[0], v[1], v[2]); return [v[0] / m, v[1] / m, v[2] / m]; })();
+  var CAM = 5.2;
+
+  function makeRot(spin, rx, ry) {
+    var cs = Math.cos(spin), ss = Math.sin(spin), cx = Math.cos(rx), sx = Math.sin(rx), cy = Math.cos(ry), sy = Math.sin(ry);
+    return function (x, y, z) {
+      var x1 = x * cs - y * ss, y1 = x * ss + y * cs;
+      var y2 = y1 * cx - z * sx, z2 = y1 * sx + z * cx;
+      return [x1 * cy + z2 * sy, y2, -x1 * sy + z2 * cy];
+    };
+  }
+  function shade(n, base) {
+    var d = Math.max(0, n[0] * light[0] + n[1] * light[1] + n[2] * light[2]);
+    return 'hsl(' + HUE + ' ' + (22 + d * 10) + '% ' + (base + d * 46) + '%)';
+  }
+  function shadeWarm(n, lift) {
+    var d = Math.max(0, n[0] * light[0] + n[1] * light[1] + n[2] * light[2]);
+    return 'hsl(' + (22 + d * 8) + ' ' + (36 + d * 10) + '% ' + (33 + (lift || 0) + d * 28) + '%)';
+  }
+
+  function drawGear(px, py, size, spin, rxA, ryA, alpha) {
+    var rot = makeRot(spin, rxA, ryA);
+    function proj(v) { var f = CAM / (CAM + v[2]); return [px + v[0] * size * f, py - v[1] * size * f]; }
+
+    ctx.save();
+    ctx.globalAlpha = alpha;
+
+    /* soft floor shadow */
+    var sh = ctx.createRadialGradient(px, py + size * 1.35, 0, px, py + size * 1.35, size * 1.1);
+    sh.addColorStop(0, 'hsla(' + HUE + ',40%,6%,.38)');
+    sh.addColorStop(1, 'hsla(' + HUE + ',40%,6%,0)');
+    ctx.save(); ctx.translate(0, 0);
+    ctx.setTransform(DPR, 0, 0, DPR * 0.28, 0, py * DPR * (1 - 0.28) + size * 1.35 * DPR * 0.0);
+    ctx.restore();
+    ctx.save();
+    ctx.translate(px, py + size * 1.35); ctx.scale(1, 0.22); ctx.translate(-px, -(py + size * 1.35));
+    ctx.fillStyle = sh; ctx.beginPath(); ctx.arc(px, py + size * 1.35, size * 1.1, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+
+    /* side walls, far to near */
+    var vis = [];
+    for (var i = 0; i < quads.length; i++) {
+      var q = quads[i];
+      var nn = rot(q.n[0], q.n[1], 0);
+      if (nn[2] >= 0) continue;
+      var pts = q.c.map(function (c) { return rot(c[0], c[1], c[2]); });
+      var z = (pts[0][2] + pts[1][2] + pts[2][2] + pts[3][2]) / 4;
+      vis.push({ pts: pts, n: nn, z: z });
+    }
+    vis.sort(function (a, b) { return b.z - a.z; });
+    vis.forEach(function (f) {
+      var p = f.pts.map(proj), col = shade(f.n, 20);
+      ctx.beginPath(); ctx.moveTo(p[0][0], p[0][1]);
+      for (var i = 1; i < 4; i++) ctx.lineTo(p[i][0], p[i][1]);
+      ctx.closePath(); ctx.fillStyle = col; ctx.fill();
+      ctx.lineWidth = 0.7; ctx.strokeStyle = col; ctx.stroke();
+    });
+
+    /* camera-facing cap */
+    var capZ = rot(0, 0, -1)[2] < 0 ? -HALF : HALF;
+    var capN = rot(0, 0, capZ < 0 ? -1 : 1);
+    ctx.beginPath();
+    loops.forEach(function (L) {
+      L.pts.forEach(function (pt, i) {
+        var q = proj(rot(pt[0], pt[1], capZ));
+        if (i === 0) ctx.moveTo(q[0], q[1]); else ctx.lineTo(q[0], q[1]);
+      });
+      ctx.closePath();
+    });
+    ctx.fillStyle = shadeWarm(capN, 0);
+    ctx.fill('evenodd');
+    ctx.lineWidth = 1.2; ctx.strokeStyle = 'hsla(30,70%,86%,.28)'; ctx.stroke();
+
+    /* ----- face detail ----- */
+    var sgn = capZ < 0 ? -1 : 1;
+    function ringPath(r, z) {
+      ctx.beginPath();
+      for (var i = 0; i <= 72; i++) {
+        var a = i / 72 * Math.PI * 2, q = proj(rot(Math.cos(a) * r, Math.sin(a) * r, z));
+        if (i === 0) ctx.moveTo(q[0], q[1]); else ctx.lineTo(q[0], q[1]);
+      }
+    }
+    /* chamfer line just inside the teeth */
+    ctx.beginPath();
+    outer.forEach(function (pt, i) {
+      var q = proj(rot(pt[0] * 0.94, pt[1] * 0.94, capZ));
+      if (i === 0) ctx.moveTo(q[0], q[1]); else ctx.lineTo(q[0], q[1]);
+    });
+    ctx.closePath(); ctx.lineWidth = 1; ctx.strokeStyle = 'hsla(30,70%,88%,.14)'; ctx.stroke();
+    /* engraved grooves */
+    [0.74, 0.5].forEach(function (r) {
+      ringPath(r, capZ); ctx.lineWidth = 1.6; ctx.strokeStyle = 'hsla(18,50%,8%,.32)'; ctx.stroke();
+      ctx.save(); ctx.translate(0, 1.3); ringPath(r, capZ); ctx.lineWidth = 1; ctx.strokeStyle = 'hsla(30,80%,88%,.16)'; ctx.stroke(); ctx.restore();
+    });
+
+    /* raised hub */
+    var bz = capZ + sgn * BH, bq = [], bi, BN = 48;
+    for (bi = 0; bi < BN; bi++) {
+      var a0 = bi / BN * Math.PI * 2, a1 = (bi + 1) / BN * Math.PI * 2, am = (a0 + a1) / 2;
+      var bn = rot(Math.cos(am), Math.sin(am), 0);
+      if (bn[2] >= 0) continue;
+      var c = [rot(Math.cos(a0) * RB, Math.sin(a0) * RB, capZ), rot(Math.cos(a1) * RB, Math.sin(a1) * RB, capZ), rot(Math.cos(a1) * RB, Math.sin(a1) * RB, bz), rot(Math.cos(a0) * RB, Math.sin(a0) * RB, bz)];
+      bq.push({ c: c, n: bn, z: (c[0][2] + c[2][2]) / 2 });
+    }
+    bq.sort(function (a, b) { return b.z - a.z; });
+    bq.forEach(function (f) {
+      var p = f.c.map(proj), col = shadeWarm(f.n, -6);
+      ctx.beginPath(); ctx.moveTo(p[0][0], p[0][1]);
+      for (var i = 1; i < 4; i++) ctx.lineTo(p[i][0], p[i][1]);
+      ctx.closePath(); ctx.fillStyle = col; ctx.fill(); ctx.lineWidth = 0.7; ctx.strokeStyle = col; ctx.stroke();
+    });
+    ctx.beginPath();
+    for (bi = 0; bi < BN; bi++) {
+      var ba = bi / BN * Math.PI * 2, bp = proj(rot(Math.cos(ba) * RB, Math.sin(ba) * RB, bz));
+      if (bi === 0) ctx.moveTo(bp[0], bp[1]); else ctx.lineTo(bp[0], bp[1]);
+    }
+    ctx.closePath();
+    holeShape.forEach(function (pt, i) {
+      var q = proj(rot(pt[0], pt[1], bz));
+      if (i === 0) ctx.moveTo(q[0], q[1]); else ctx.lineTo(q[0], q[1]);
+    });
+    ctx.closePath();
+    ctx.fillStyle = shadeWarm(capN, 7); ctx.fill('evenodd');
+    ctx.lineWidth = 1; ctx.strokeStyle = 'hsla(30,70%,88%,.3)'; ctx.stroke();
+    /* bolt heads on the hub */
+    for (var bt = 0; bt < 6; bt++) {
+      var ta = Math.PI / 6 + bt * Math.PI / 3, tq = proj(rot(Math.cos(ta) * 0.375, Math.sin(ta) * 0.375, bz));
+      var tr = size * 0.026;
+      ctx.beginPath(); ctx.arc(tq[0], tq[1], tr, 0, Math.PI * 2);
+      ctx.fillStyle = 'hsla(212,30%,16%,.8)'; ctx.fill();
+      ctx.lineWidth = 0.8; ctx.strokeStyle = 'hsla(30,70%,88%,.35)'; ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  /* ---------- sparks + spin kick on click ---------- */
+  var sparks = [], kick = 0;
+  function burst(x, y) {
+    var n = reduce ? 0 : 26;
+    for (var i = 0; i < n; i++) {
+      var a = Math.random() * Math.PI * 2, v = 2 + Math.random() * 6;
+      sparks.push({ x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 1.5, life: 1, d: 0.016 + Math.random() * 0.02, warm: Math.random() < 0.65, len: 4 + Math.random() * 7 });
+    }
+    if (!reduce) kick += 0.16;
+  }
+  window.addEventListener('pointerdown', function (e) { burst(e.clientX, e.clientY); });
+  function drawSparks() {
+    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
+    for (var i = sparks.length - 1; i >= 0; i--) {
+      var s = sparks[i];
+      s.x += s.vx; s.y += s.vy; s.vy += 0.12; s.vx *= 0.985; s.life -= s.d;
+      if (s.life <= 0) { sparks.splice(i, 1); continue; }
+      var sp = Math.hypot(s.vx, s.vy) || 1;
+      ctx.strokeStyle = s.warm ? 'hsla(' + (24 + 14 * (1 - s.life)) + ',100%,62%,' + s.life + ')' : 'hsla(205,95%,78%,' + s.life + ')';
+      ctx.lineWidth = 1 + s.life * 1.6;
+      ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(s.x - s.vx / sp * s.len * s.life, s.y - s.vy / sp * s.len * s.life); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  /* ---------- scene state ---------- */
+  var ids = ['hero', 'work', 'approach', 'contact'];
+  var secs = ids.map(function (id) { return document.getElementById(id); });
+  var desk = [
+    { x: .74, y: .50, s: 1.00, ry: .55 },
+    { x: .86, y: .42, s: .60,  ry: 1.15 },
+    { x: .20, y: .52, s: .90,  ry: -.65 },
+    { x: .74, y: .34, s: .78,  ry: .25 }
+  ];
+  var mob = desk.map(function (d, i) { return { x: .5, y: .2, s: .55, ry: d.ry }; });
+  var cur = null;
+  function ease(t) { return t * t * (3 - 2 * t); }
+  function target() {
+    var m = window.scrollY + H * 0.5, kf = W < 800 ? mob : desk;
+    var cs = secs.map(function (s) { return s.offsetTop + s.offsetHeight / 2; });
+    var i = 0;
+    while (i < cs.length - 1 && m >= cs[i + 1]) i++;
+    var t = i >= cs.length - 1 ? 0 : ease(Math.min(1, Math.max(0, (m - cs[i]) / (cs[i + 1] - cs[i]))));
+    var a = kf[i], b = kf[Math.min(i + 1, kf.length - 1)];
+    return {
+      x: (a.x + (b.x - a.x) * t) * W, y: (a.y + (b.y - a.y) * t) * H,
+      s: (a.s + (b.s - a.s) * t), ry: a.ry + (b.ry - a.ry) * t
+    };
+  }
+
+  var lastL = -1, kickAngle = 0;
+  var t0 = performance.now();
+  function frame(now) {
+    var tg = target();
+    var sy = window.scrollY, max = Math.max(1, document.documentElement.scrollHeight - H), prog = Math.min(1, sy / max);
+    var idle = reduce ? 0 : (now - t0) / 1000;
+    kickAngle += kick; kick *= 0.94; if (Math.abs(kick) < 0.0005) kick = 0;
+    tg.spin = sy * 0.0034 + idle * 0.12 + kickAngle;
+    tg.rx = -0.42 + (reduce ? 0 : ny * 0.12);
+    tg.ry = tg.ry + (reduce ? 0 : nx * 0.22);
+    tg.bob = reduce ? 0 : Math.sin(idle * 0.9) * 0.025;
+    if (!cur) cur = JSON.parse(JSON.stringify(tg));
+    var k = reduce ? 1 : 0.075;
+    ['x', 'y', 's', 'ry', 'spin', 'rx', 'bob'].forEach(function (p) { cur[p] += (tg[p] - cur[p]) * k; });
+
+    ctx.clearRect(0, 0, W, H);
+    var base = Math.min(W, H) * (W < 800 ? 0.3 : 0.36);
+    drawGear(cur.x, cur.y + cur.bob * base, base * cur.s, cur.spin, cur.rx, cur.ry, W < 800 ? 0.5 : 1);
+
+    drawSparks();
+    root.style.setProperty('--wx', (W - cur.x) + 'px');
+    root.style.setProperty('--wy', (H * 0.85) + 'px');
+    root.style.setProperty('--gx', cur.x + 'px');
+    root.style.setProperty('--gy', cur.y + 'px');
+    var l1 = 12 + prog * 7;
+    if (Math.abs(l1 - lastL) > 0.05) {
+      lastL = l1;
+      root.style.setProperty('--l1', l1.toFixed(2) + '%');
+      root.style.setProperty('--l2', (18 + prog * 9).toFixed(2) + '%');
+      root.style.setProperty('--h', (214 - prog * 12).toFixed(1));
+      HUE = Math.round(214 - prog * 12);
+    }
+    document.getElementById('progress').style.transform = 'scaleX(' + prog.toFixed(4) + ')';
+
+    if (fine) {
+      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
 </body>
 </html>
